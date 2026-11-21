@@ -1,0 +1,6 @@
+○ apport.service - automatic crash report generation
+     Loaded: loaded (/usr/lib/systemd/system/apport.service; enabled; preset: enabled)
+     Active: inactive (dead)
+  Condition: start condition unmet at Wed 2026-11-18 17:04:35 EST; 1h 22min ago
+
+Nov 18 17:04:35 LAPTOP-MSIPA0RE systemd[1]: apport.service - automatic crash report generation skipped, unmet condition check ConditionVirtualization=!container

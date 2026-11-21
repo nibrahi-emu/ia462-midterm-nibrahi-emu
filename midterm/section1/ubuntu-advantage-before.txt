@@ -1,0 +1,8 @@
+○ ubuntu-advantage.service - Ubuntu Pro Background Auto Attach
+     Loaded: loaded (/usr/lib/systemd/system/ubuntu-advantage.service; enabled; preset: enabled)
+     Active: inactive (dead)
+  Condition: start condition unmet at Wed 2026-11-18 17:04:35 EST; 1h 25min ago
+       Docs: man:ubuntu-advantage
+             https://ubuntu.com/advantage
+
+Nov 18 17:04:35 LAPTOP-MSIPA0RE systemd[1]: ubuntu-advantage.service - Ubuntu Pro Background Auto Attach skipped, no trigger condition checks were met.
