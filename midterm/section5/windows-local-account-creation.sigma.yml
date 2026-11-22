@@ -1,0 +1,24 @@
+
+title: Windows Local User Account Creation
+id: 61f83b9d-e20c-4e88-a9d6-42df24fa3d15
+status: experimental
+description: Detects Windows Security Event ID 4720, indicating creation of a new user account. Useful for identifying potential persistence through local account creation.
+references:
+  - https://attack.mitre.org/techniques/T1136/001/
+author: IA 462 Midterm
+date: 2026-11-22
+tags:
+  - attack.persistence
+  - attack.t1136.001
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4720
+  condition: selection
+falsepositives:
+  - Legitimate administrator account provisioning
+  - Approved IT account management
+  - Temporary laboratory test accounts
+level: medium
