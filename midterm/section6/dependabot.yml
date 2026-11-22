@@ -1,0 +1,31 @@
+
+version: 2
+
+updates:
+  # Flask application dependencies
+  - package-ecosystem: "pip"
+    directory: "/midterm/app"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Section 6 pinned dependencies
+  - package-ecosystem: "pip"
+    directory: "/midterm/section6"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # Section 3 Dockerfile
+  - package-ecosystem: "docker"
+    directory: "/midterm/section3"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5

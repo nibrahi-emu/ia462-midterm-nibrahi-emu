@@ -1,0 +1,67 @@
+
+name: IA462 Security Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - midterm-nibrahi-emu
+  pull_request:
+    branches:
+      - main
+      - midterm-nibrahi-emu
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    name: Trivy, Syft SBOM and pip-audit
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Build hardened Docker image
+        run: |
+          docker build \
+            -f midterm/section3/Dockerfile \
+            -t ia462-midterm:ci \
+            midterm
+
+      - name: Trivy image vulnerability scan
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25
+        with:
+          scan-type: image
+          image-ref: ia462-midterm:ci
+          format: table
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '0'
+          output: trivy-report.txt
+
+      - name: Generate Syft SPDX JSON SBOM
+        uses: anchore/sbom-action@e22c389904149dbc22b58101806040fa8d37a610
+        with:
+          image: ia462-midterm:ci
+          format: spdx-json
+          output-file: sbom.spdx.json
+          upload-artifact: 'false'
+          dependency-snapshot: 'false'
+
+      - name: Verify generated scan files
+        run: |
+          test -s trivy-report.txt
+          test -s sbom.spdx.json
+          echo "Trivy report and Syft SBOM generated"
+
+      - name: Install pip-audit
+        run: |
+          python3 -m pip install pip-audit
+
+      - name: Audit Python dependencies
+        run: |
+          python3 -m pip_audit \
+            -r midterm/section6/requirements.txt \
+            --progress-spinner off

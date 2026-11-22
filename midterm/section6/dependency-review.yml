@@ -1,0 +1,25 @@
+
+name: IA462 Dependency Review
+
+on:
+  pull_request:
+    branches:
+      - main
+      - midterm-nibrahi-emu
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-review:
+    name: Block High and Critical Vulnerabilities
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Review dependency changes
+        uses: actions/dependency-review-action@2031cfc080254a8a887f58cffee85186f0e49e48
+        with:
+          fail-on-severity: high
